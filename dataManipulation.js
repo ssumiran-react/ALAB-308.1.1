@@ -59,21 +59,46 @@ let fuelSpeed75 = totalTripDistance / speed75MilesFuelPergallon;
 console.log("Total trip fuel in gallon at speed 55: " +fuelSpeed55 + "\n" +
             "Total trip fuel in gallon at speed 60: " +fuelSpeed60 + "\n" +
             "Total trip fuel in gallon at speed 75: " +fuelSpeed75
-)
+);
 
 //Will your budget be enough to cover the fuel expense?
 const budgetFuelInGallon = tripBudget / fuelPergallon;
-let isBudgetSpeed55 = budgetFuelInGallon - fuelSpeed55 ;
-let isBudgetSpeed60 = budgetFuelInGallon - fuelSpeed60 ;
-let isBudgetSpeed75 = budgetFuelInGallon - fuelSpeed75 ;
+let isBudgetSpeed55 = budgetFuelInGallon > fuelSpeed55 ;
+let isBudgetSpeed60 = budgetFuelInGallon > fuelSpeed60 ;
+let isBudgetSpeed75 = budgetFuelInGallon > fuelSpeed75 ;
 
 console.log("Total budget fuel in gallon: " +budgetFuelInGallon + "\n" +
-            "Total trip fuelin gallon at speed 60: " +fuelSpeed60 + "\n" +
-            "Total trip fuel in gallon at speed 70: " +fuelSpeed75
-)
+            "Is enough budget at 55 speed/mile: " +isBudgetSpeed55 + "\n" +
+            "Is enough budget at 60 speed/mile: " +isBudgetSpeed60 + "\n" +
+            "Is enough budget at 75 speed/mile: " +isBudgetSpeed75
+);
 //How long will the trip take, in hours?
+let speed55MilesTripHours = totalTripDistance / 55;
+let speed60MilesTripHours = totalTripDistance / 60;
+let speed75MilesTripHours = totalTripDistance / 75;
 
+console.log("Total trip hours at speed 55: " +speed55MilesTripHours + "\n" +
+            "Total trip hours at speed 60: " +speed60MilesTripHours + "\n" +
+            "Total trip hours at speed 75: " +speed75MilesTripHours
+);
 
+/*Compare the results when traveling at an average of 55, 60, 
+and 75 miles per hour. Which makes the most sense for the trip?*/
+//Better choice when is covered the budget and less hours to travel.
+let isSpeed55BetterTrip = ((speed55MilesTripHours < speed60MilesTripHours) && isBudgetSpeed55)
+                        || ((speed55MilesTripHours < speed75MilesTripHours) && isBudgetSpeed55);
+
+let isSpeed60BetterTrip = ((speed60MilesTripHours < speed55MilesTripHours) && isBudgetSpeed60)
+                        || ((speed60MilesTripHours < speed75MilesTripHours) && isBudgetSpeed60);
+
+let isSpeed75BetterTrip = ((speed75MilesTripHours < speed55MilesTripHours)  && isBudgetSpeed75)
+                        || ((speed75MilesTripHours < speed60MilesTripHours) && isBudgetSpeed75);
+
+console.log("Better trip choice when is covered the budget and less hours to travel.\n"+
+            "Is it best trip choice at speed 55: " +isSpeed55BetterTrip + "\n" + 
+            "Is it best trip choice at speed 60: " +isSpeed60BetterTrip + "\n" +
+            "Is it best trip choice at speed 75: " +isSpeed75BetterTrip 
+);
 /*Part 2: Practical Math
 Let’s look at a more practical scenario.
 You are planning a cross-country road trip!
@@ -111,57 +136,3 @@ with the variety of operators and data types available in
 JavaScript!
 
 */
-
-
-
-// Check one: add up to 50
-// This is a fairly simple operation using
-// arithmetic operators and a comparison.
-const isSum50 = (n1 + n2 + n3 + n4) == 50;
-
-// Check two: at least two odd numbers
-// Here, we use modulus to check if something is odd.
-// Since % 2 is 0 if even and 1 if odd, we can use
-// arithmetic to count the total number of odd numbers.
-const isTwoOdd = (n1 % 2) + (n2 % 2) + (n3 % 2) + (n4 % 2) >= 2;
-
-// Check three: no number larger than 25
-// This time, we use the OR operator to check
-// if ANY of the numbers is larger than 25.
-const isNotOver25 = n1 < 25 || n2 < 25 || n3 < 25 || n4 < 25;
-
-//Implement the following:
-
-
-
-
-
-
-
-
-
-
-
-// Check four: all unique numbers
-// This is long, and there are more efficient
-// ways of handling it with other data structures
-// that we will review later.
-const isUnique = n1 != n2 && n1 != n3 && n1 != n4 && n2 != n3 && n2 != n4 && n3 != n4;
-
-// Here, we put the results into a single variable 
-// for convenience. Note how we negate isOver25 using
-// the ! operator. We could also have tested for 
-// "isUnder25" as an alternative.
-const isValid = isSum50 && isTwoOdd && isNotOver25 && isUnique;
-
-// Finally, log the results.
-console.log(isValid);
-
-// Here's another example of how this COULD be done,
-// but it SHOULD NOT be done this way. As programmers,
-// we break things into small, manageable pieces so that
-// they can be better understood, scaled, and maintained.
-const dontDoThis = ((n1 + n2 + n3 + n4) == 50) &&
-   ((n1 % 2) + (n2 % 2) + (n3 % 2) + (n4 % 2) >= 2) &&
-   !(n1 > 25 || n2 > 25 || n3 > 25 || n4 > 25) &&
-   (n1 != n2 && n1 != n3 && n1 != n4 && n2 != n3 && n2 != n4 && n3 != n4);
